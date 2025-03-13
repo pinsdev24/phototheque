@@ -1,0 +1,277 @@
+.album-card {
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 20px;
+}
+.album-card:hover {
+    transform: scale(1.05);
+}
+.album-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.album-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.7) 100%);
+    color: white;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+}
+.album-date {
+    font-size: 0.8em;
+    margin-bottom: 5px;
+}
+.album-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.album-description {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.7);
+    padding: 10px;
+    transition: bottom 0.3s ease-in-out;
+    color:aliceblue;
+    font-weight: 800;
+}
+.album-card:hover .album-overlay {
+    /* background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%); */
+    cursor: pointer;
+}
+.album-card:hover .album-description {
+    bottom: 0;
+    cursor: pointer;
+}
+
+.album-header {
+    background-color:  #e3f2fd;;
+    padding: 1rem 0 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+.album-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: url('/api/placeholder/1000/600');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    transform: rotate(30deg);
+}
+.album-header-content {
+    position: relative;
+    z-index: 1;
+}
+.album-title-text {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+.album-description-text {
+    font-size: 1.1rem;
+    max-width: 800px;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+.album-meta {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+.album-actions {
+    margin-top: 1.5rem;
+}
+.btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+.image-card {
+    position: relative;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border-radius: 8px;
+}
+.image-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+.image-card:hover img{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    color: white;
+    padding: 0.5rem;
+    font-size: small;
+    font-weight: 500;
+}
+.delete-image {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+.delete-image:hover {
+    background-color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    color: red;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+.profile-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.profile-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.stat-card {
+    background-color: #f1f3f5;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+.icon-container {
+    font-size: 4rem;
+    color: #007bff;
+    margin-bottom: 1rem;
+}
+
+.btn-primary-custom {
+    background: linear-gradient(to right, #764ba2, #667eea);
+    border: none;
+}
+.btn-primary-custom:hover {
+    background: linear-gradient(to right, #667eea, #764ba2);
+}
+
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 4px;
+    padding: 4px;
+}
+.photo-item {
+    position: relative;
+    overflow: hidden;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    cursor: pointer;
+}
+.photo-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.photo-item:hover img {
+    transform: scale(1.1);
+}
+.delete-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    padding: 5px;
+    z-index: 10;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.delete-icon:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.date-added {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    z-index: 10;
+}
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1000;
+}
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

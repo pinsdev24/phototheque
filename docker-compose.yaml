@@ -1,0 +1,26 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URI: mongodb://localhost:27017/phototeque
+      MONGO_URI_TEST: mongodb://localhost:27017/phototeque_test
+      PORT: 3000
+      JWT_SECRET: u11gg4eU3e3uOKLI27tr4sZDSIr8jp0uhJXe8kcPimO
+      SESSION_SECRET: ADSUH6546ASD$&ASD64987A@SPDM
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

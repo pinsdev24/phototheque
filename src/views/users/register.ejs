@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: transparent;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #764ba2, #667eea);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(to right, #667eea, #764ba2);
+        }
+        .form-control {
+            border-radius: 10px;
+        }
+        .form-floating label {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <% if (messages.length > 0) { %>
+                    <div class="alert alert-danger"><%= messages %></div>
+                <% } %>
+                <div class="card">
+                    <div class="card-header text-center pt-4">
+                        <h2 class="fw-bold mb-0">Inscription</h2>
+                        <p class="text-muted">Créez votre compte Photothèque</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="/register" method="post">
+                            <div class="form-floating mb-3">
+                                <input name="name" type="text" class="form-control" id="floatingName" placeholder="Votre nom">
+                                <label for="floatingName">Nom</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input name="email" type="email" class="form-control" id="floatingEmail" placeholder="nom@exemple.com">
+                                <label for="floatingEmail">Adresse email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Mot de passe">
+                                <label for="floatingPassword">Mot de passe</label>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-lg" type="submit">S'inscrire</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer bg-white text-center border-0 py-3">
+                        <p class="mb-0">Déjà un compte ? <a href="/signin" class="text-primary">Se connecter</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<div id="loader" class="loader-container">
+    <div class="loader"></div>
+</div>
+
+<div class="container-fluid">
+    
+    <h1 class="mt-3 mb-3">Tous mes images</h1>
+    
+    <main class="photo-gallery" id="photoGallery">
+
+    </main>
+</div>
+
+<script>
+    async function getAllPhotos() {
+        try {
+            const response = await fetch('/albums/photos');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const photos = await response.json();
+            return photos.photos;
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
+
+    async function displayPhotos() {
+        const gallery = document.getElementById('photoGallery');
+        const photos = await getAllPhotos();
+        photos.forEach(photo => {
+            const photoElement = `
+                <div class="photo-item" data-src="${photo.url.replace('public\\', '/')}">
+                    <a href="${photo.url.replace('public\\', '/')}" alt="${photo.albumTitle}" data-lg-size="1600-2400">
+                        <img src="${photo.url.replace('public\\', '/')}" alt="${photo.albumTitle}">
+                    </a>
+                </div>
+            `;
+            gallery.innerHTML += photoElement;
+        });
+    }
+
+    function hideLoader() {
+        document.getElementById('loader').style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', async() => {
+        await displayPhotos();
+        hideLoader();
+        lightGallery(document.getElementById('photoGallery'), {
+            plugins: [lgZoom, lgThumbnail],
+            speed: 500,
+        });
+    });
+
+</script>
+
+

@@ -1,0 +1,185 @@
+<div class="container-fluid mt-3">
+    <div class="album-header">
+        <div class="container-fluid album-header-content">
+            <h1 class="text-muted fw-bold"><%= album.title %></h1>
+            <p class="album-description-text">
+                <%= album.description %>
+            </p>
+            <div class="album-meta">
+                <span><i class="fas fa-calendar-alt me-2"></i>Créé le <%= album.createdAt.toDateString() %></span>
+                <span class="ms-3"><i class="fas fa-image me-2"></i><%= album.images.length %> photos</span>
+            </div>
+            <div class="album-actions">
+                <button class="btn btn-primary btn-primary-custom" data-bs-toggle="modal" data-bs-target="#add_photos">
+                    <i class="fas fa-plus me-2"></i>Ajouter des images
+                </button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#update_album">
+                    <i class="fa-regular fa-pen-to-square me-2"></i>Mettre à jour
+                </button>
+                <button class="btn btn-danger" id="delete-album-btn">
+                    <i class="fas fa-trash me-2"></i>Supprimer l'album
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <h1 class="mb-4">Mes photos</h1>
+
+    <main class="photo-gallery mb-2" id="photoGallery">
+        <% album.images.forEach(photo => { %>
+            <div class="photo-item" data-src="<%= photo.url.replace('public\\', '/') %>">
+                <a href="<%= photo.url.replace('public\\', '/') %>">
+                    <img src="<%= photo.url.replace('public\\', '/') %>" alt="<%= album.title %>" loading="lazy">
+                </a>
+                <div class="delete-icon" onclick="deletePhoto(`<%= photo._id %>`)">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
+                <div class="date-added"><%= photo.createdAt.toDateString() %></div>
+            </div>
+        <% }) %>
+    </main>
+</div>
+
+<!--Create model-->
+<div class="modal fade" id="add_photos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title w-100 fs-5 d-flex align-items-end justify-content-between"
+                    id="exampleModalLabel">
+                    <span class="title_create">Ajouter de nouvelle images</span>
+                    <button class="next_btn_post btn_link"></button>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/albums/<%= album._id %>/photos" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Selectionner les images</label>
+                        <input type="file" class="form-control" id="photo" name="photo" accept="image/png, image/jpeg, image/gif" multiple>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--update model-->
+<div class="modal fade" id="update_album" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title w-100 fs-5 d-flex align-items-end justify-content-between"
+                    id="exampleModalLabel">
+                    <span class="title_create">Modifier l'album : <%= album.title %></span>
+                    <button class="next_btn_post btn_link"></button>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/albums/<%= album._id %>" method="post">
+                <input type="hidden" name="_method" value="put"/>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Titre de l'album</label>
+                        <input type="text" class="form-control" value="<%= album.title %>" id="title-update" name="title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <textarea class="form-control" name="description" id="description-update"><%= album.description %></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary" id="update_album_btn">Enregister</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<% if (message.length > 0) { %>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="add-photo-toast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Message</strong>
+                <small>Maintenant</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <%= message %>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<script>
+    $(document).ready(function(){
+        $('#add-photo-toast').toast('show');
+        lightGallery(document.getElementById('photoGallery'), {
+            plugins: [lgZoom, lgThumbnail],
+            speed: 500,
+        });
+    });
+
+    const albumId = "<%= album._id %>"
+    const deleteAlbumBtn = document.getElementById('delete-album-btn')
+    const updateAlbumBtn = document.getElementById('update_album_btn')
+
+    deleteAlbumBtn.addEventListener('click', async (e) => {
+        try {
+            const response = await fetch(`/albums/${albumId}/`, {method: 'DELETE'});
+            if (response.ok) {
+                window.location.href = '/albums'
+            }
+
+        } catch (error) {
+            alert(`Une erreur est survenu lors de la suppression de l'album: ${error}`)
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    })
+
+    async function deletePhoto(photoId) {
+        
+        try {
+            const response = await fetch(`/albums/${albumId}/${photoId}`, {method: 'DELETE'});
+            if (response.ok) {
+                window.location.href = `/albums/${albumId}/photos`
+            }
+        } catch (error) {
+            alert(`Une erreur est survenu lors de la suppression de l'image: ${error}`)
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
+
+    async function updateAlbum() {
+        const title = document.getElementById('title-update').value;
+        const description = document.getElementById('description-update').value
+
+        try {
+            const response = await fetch(`/albums/${albumId}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({title, description})
+                }
+            );
+
+            if (response.ok){
+                window.location.href = `/albums/${albumId}/photos`
+            }
+        } catch (error) {
+            alert(`Une erreur est survenu lors de la mise à jour des information: ${error}`)
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
+    updateAlbumBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        updateAlbum()
+    })
+</script>

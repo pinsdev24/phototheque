@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Phothèque</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Albums</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/explore">Photos</a>
+            </li>
+        </ul>
+        <div class="d-flex">
+            <button class="btn btn-primary btn-primary-custom me-2" type="button" data-bs-toggle="modal" data-bs-target="#create_album">
+                <i class="fa-regular fa-square-plus"></i>
+                Nouvel Album
+            </button>
+            <a href="/me" class="user-icon mx-3">
+                <img src="/images/icons/avatar.png" height="40" width="40" alt="">
+            </a>
+        </div>
+        </div>
+    </div>
+</nav>
+
+<!--Create model-->
+<div class="modal fade" id="create_album" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title w-100 fs-5 d-flex align-items-end justify-content-between"
+                    id="exampleModalLabel">
+                    <span class="title_create">Créer un nouvel album</span>
+                    <button class="next_btn_post btn_link"></button>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/albums" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Titre de l'album</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <textarea class="form-control" name="description" id="description"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregister</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

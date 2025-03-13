@@ -1,0 +1,55 @@
+<div class="container mt-5">
+<% if (albums.length > 0) { %>
+    <h1 class="mb-4">Mes Albums</h1>
+    <div class="row">
+        <% albums.forEach(album => { %>
+            <div class="col-md-3 mb-4">
+                <a href="/albums/<%= album._id %>/photos">
+                    <div class="album-card">
+                        <% if (album.images.length > 0) { %>
+                            <img src="<%= album.images[0].url.replace('public\\', '') %>" class="album-image" alt="Album Cover">
+                        <% } else { %>
+                            <img src='https://i.ibb.co/z41bG1y/img6.jpg' class="album-image" alt="Album Cover">
+                        <% } %>
+                        <div class="album-overlay">
+                            <div class="album-date"><%= album.createdAt.toDateString() %></div>
+                            <h5 class="album-title"><%= album.title %></h5>
+                        </div>
+                        <div class="album-description">
+                            <p><%= album.description %></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <% }) %>
+    </div>
+<% } else { %>
+    <div class="center-content">
+        <div class="card shadow">
+            <div class="card-body text-center p-5">
+                <div class="icon-container">
+                    <i class="fa-regular fa-images"></i>
+                </div>
+                <h2 class="card-title mb-4">Vous n'avez pas encore créé d'album photo</h2>
+                <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#create_album">Créer maintenant</button>
+            </div>
+        </div>
+    </div>
+    <% } %>
+</div>
+
+
+<% if (message.length > 0) { %>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="add-photo-toast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Message</strong>
+                <small>Maintenant</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <%= message %>
+            </div>
+        </div>
+    </div>
+<% } %>
