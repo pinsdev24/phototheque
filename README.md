@@ -61,7 +61,7 @@ my-app/
 
     ```bash
     git clone https://github.com/pinsdev/phototheque.git
-    cd 3NPM
+    cd phototheque
     ```
 
 2. Install dependencies:
