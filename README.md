@@ -60,7 +60,7 @@ my-app/
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/106133/3NPM.git
+    git clone https://github.com/pinsdev/phototheque.git
     cd 3NPM
     ```
 
@@ -73,6 +73,7 @@ my-app/
 3. Create a `.env` file in the root directory and add your environment variables:
 
     ```plaintext
+    NODE_ENV=development
     PORT=3000
     JWT_SECRET=your_jwt_secret
     MONGO_URI=mongodb://localhost:27017/phototeque
@@ -97,24 +98,8 @@ my-app/
 
 To run this app using Docker, follow these steps:
 
-### Using Dockerfile
-1. **Install Docker**: If you haven't installed Docker yet, download it from [Docker's official website](https://www.docker.com/get-started).
-
-2. **Build the Docker Image**:
-   ```bash
-   docker build -t phototheque .
-   ```
-
-3. **Run the Docker Container**:
-   ```bash
-   docker run -p 8080:8080 phototheque
-   ```
-   This command maps port 8080 of the container to port 8080 on your host machine.
-
-4. **Access the App**: Open your web browser and go to `http://localhost:8080` to access the app.
-
 ### Using Docker Compose
-1. **Install Docker Compose**: If you haven't installed Docker Compose, follow the installation instructions on [Docker's official documentation](https://docs.docker.com/compose/install/).
+1. **Install Docker**: If you haven't installed Docker, follow the installation instructions on [Docker's official documentation](https://www.docker.com/products/docker-desktop/).
 
 2. **Run the App**:
    ```bash
@@ -122,7 +107,7 @@ To run this app using Docker, follow these steps:
    ```
    This command will build the images and start the containers defined in the `docker-compose.yaml` file.
 
-3. **Access the App**: Open your web browser and go to `http://localhost:8080` to access the app.
+3. **Access the App**: Open your web browser and go to `http://localhost:3000` to access the app.
 
 ## Usage
 
